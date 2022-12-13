@@ -16,6 +16,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Layout;
 
 class TransaksiResource extends Resource
 {
@@ -121,8 +122,14 @@ class TransaksiResource extends Resource
                     //                 ->decimalSeparator('.'),
                     //         ])->pattern('money'),
                     // ),
-                    TextInput::make('transaksi_jumlah')->mask(fn (TextInput\Mask $mask) => $mask
-                        ->money(prefix: 'Rp ', thousandsSeparator: ',', decimalPlaces: 2)),
+                    TextInput::make('transaksi_jumlah')
+                        ->label('Jumlah Transaksi')
+                        ->mask(fn (TextInput\Mask $mask) => $mask->money(
+                            prefix: 'Rp ',
+                            thousandsSeparator: ',',
+                            decimalPlaces: 2
+                        ))
+                        ->maxLength(11),
                     Forms\Components\Select::make('karyawan_id')
                         ->label('ID Karyawan')
                         ->options(Karyawan::all()->pluck('karyawan_nama', 'karyawan_id'))
@@ -188,9 +195,10 @@ class TransaksiResource extends Resource
                 // Tables\Columns\TextColumn::make('updated_at')
                 //     ->dateTime(),
             ])
+            // ->defaultSort('created_at', 'desc')
             ->filters([
                 //
-            ])
+            ], layout: Layout::BelowContent)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])

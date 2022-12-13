@@ -49,6 +49,7 @@ class MahasiswaResource extends Resource
                 //     ->required(),
                 Forms\Components\TextInput::make('semester')
                     ->label('Semester')
+                    ->maxLength(1)
                     ->required(),
             ]);
     }

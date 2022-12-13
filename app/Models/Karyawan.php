@@ -25,5 +25,6 @@ class Karyawan extends Model
         'karyawan_id',
         'karyawan_nama',
         'karyawan_email',
+        'karyawan_telp'
     ];
 }
